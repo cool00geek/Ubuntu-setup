@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Switch to Windows
+Icon=windows
+Exec=/usr/local/bin/windowsStartup.py
+Categories=Application;
