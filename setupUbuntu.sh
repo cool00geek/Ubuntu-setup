@@ -45,6 +45,7 @@ fi
 # GIMP          #
 # Rclone browser#
 # GFX           #
+# Google Chrome #
 #################
 
 echo "Setting up repositories"
@@ -85,6 +86,10 @@ add-apt-repository ppa:mmozeiko/rclone-browser
 wget https://download.01.org/gfx/RPM-GPG-GROUP-KEY-ilg
 apt-key add RPM-GPG-GROUP-KEY-ilg
 rm RPM-GPG-GROUP-KEY-ilg
+# Chrome
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+rm linux_signing_key.pub
 # Update
 apt-get update
 
@@ -98,7 +103,7 @@ apt-get update
 # Waterfox      #
 # Albert        #
 # Unity tweak   #
-# Chromium      #
+# Chrome        #
 # qpdfview      #
 # libinput      #
 # Caffeine      #
@@ -112,8 +117,8 @@ apt-get install albert
 sudo -u $SUDO_USER "cp albert.conf $HOME/.config/albert.conf"
 # Unity tweak tool
 apt-get install unity-tweak-tool
-# Chromium
-apt-get install chromium-browser
+# Chrome
+sudo apt-get install google-chrome-stable
 # qpdfview
 apt-get install qpdfview
 # libinput
@@ -191,6 +196,7 @@ gem install fpm
 # Rclone browser #
 # Cloudprint     #
 # net-tools      #
+# Keeweb         #
 ##################
 # Gparted
 apt-get install gparted
@@ -222,6 +228,9 @@ systemctl enable cloud-print-connector.service
 systemctl start cloud-print-connector.service
 # Net-tools
 apt-get install net-tools
+# Keeweb
+wget https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb
+dpkg -i KeeWeb-1.5.6.linux.x64.deb
 
 ##################
 # Entertainment: #
@@ -230,9 +239,8 @@ apt-get install net-tools
 # Gimp           #
 # itch.io        #
 # Handbrake      #
-# Franz          #
+# Franz (Rambox?)#
 # Dolphin        #
-# GNU Paint      #
 # Variety        #
 ##################
 # Steam
@@ -260,8 +268,6 @@ EOF"
 rm Franz-linux-x64-4.0.4.tgz
 # Dolphin
 apt-get install dolphin-emu-master
-# GNU Paint
-apt-get install gpaint
 # Variety 
 apt-get install variety
 
@@ -380,7 +386,7 @@ echo "@reboot root /bin/bash -c \"/sbin/iptables-restore < /etc/iptables_rules\"
 # Git repos #
 #############
 mkdir /usr/share/icons/SuperMato
-git clone --recursive https://github.com/billwi/SuperMato.git /usr/ahre/icons/SuperMato
+git clone --recursive https://github.com/billwi/SuperMato.git /usr/share/icons/SuperMato
 
 ###########
 # Updates #
