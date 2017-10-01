@@ -29,6 +29,7 @@ else
     echo "PASS!"
 fi
 
+apt-get install curl
 
 #################
 # REPOSITORIES: #
@@ -52,7 +53,9 @@ echo "Setting up repositories"
 # Webupd8
 add-apt-repository ppa:nilarimogard/webupd8
 # Wine
-add-apt-repository ppa:wine/wine-builds
+wget https://dl.winehq.org/wine-builds/Release.key
+apt-key add Release.key
+apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
 # Recent notifications
 add-apt-repository ppa:jconti/recent-notifications
 # Handbrake
@@ -108,35 +111,34 @@ apt-get update
 # Synergy       #
 #################
 # Waterfox
-apt-get install waterfox
+apt-get --force-yes install waterfox
 # Albert
-apt-get install albert
+apt-get --force-yes install albert
 sudo -u $SUDO_USER "cp albert.conf $HOME/.config/albert.conf"
 # Unity tweak tool
-apt-get install unity-tweak-tool
+apt-get --force-yes install unity-tweak-tool
 # Chrome
-sudo apt-get install google-chrome-stable
+apt-get --force-yes install google-chrome-stable
 # qpdfview
-apt-get install qpdfview
+apt-get --force-yes install qpdfview
 # libinput
-apt-get install xserver-xorg-input-libinput
+apt-get --force-yes install xserver-xorg-input-libinput
 rm /usr/share/X11/xorg.conf.d/90-libinput.conf
 cp Configs/90-libinput.conf /usr/share/X11/xorg.conf.d/90-libinput.conf
 # Caffeine
-apt-get install caffeine
+apt-get --force-yes install caffeine
 # KeeWeb
-wget -O https://github.com/keeweb/keeweb/releases/download/v1.5.4/KeeWeb-1.5.4.linux.x64.deb keeweb.deb
+wget -O https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb keeweb.deb
 dpkg -i keeweb.deb
-apt-get install -f
+apt-get --force-yes install -f
 rm keeweb.deb
 # Synergy
-apt-get install synergy
+apt-get --force-yes install synergy
 
 ##################
 # Dev:           #
 # VS Code        #
 # Git            #
-# Arduino        #
 # Umake          #
 # Android        #
 # IDEA           #
@@ -148,28 +150,26 @@ apt-get install synergy
 # FPM            #
 ##################
 # Ubuntu make
-apt-get install ubuntu-make
+apt-get --force-yes install ubuntu-make
 # Visual studio code
-umake web visual-studio-code
+umake ide visual-studio-code
 # Git
-apt-get install git
-# Arduino
-umake ide arduino
+apt-get --force-yes install git
 # Android studio
-umake android --accept-license
+umake android android-studio --accept-license
 # IDEA
 #umake ide idea
 umake ide idea-ultimate
 # Netbeans
 # Pip
-apt-get install python-pip
+apt-get --force-yes install python-pip
 # pip 3
-apt-get install python3-pip
+apt-get --force-yes install python3-pip
 # Tkinter
-apt-get install python-tk
+apt-get --force-yes install python-tk
 # Ruby
-apt-get install ruby
-apt-get install ruby-dev
+apt-get --force-yes install ruby
+apt-get --force-yes install ruby-dev
 # FPM
 gem install fpm
 
@@ -192,39 +192,39 @@ gem install fpm
 # Super alt swap #
 ##################
 # Gparted
-apt-get install gparted
+apt-get --force-yes install gparted
 # ARandR
-apt-get install arandr
+apt-get --force-yes install arandr
 # Fingerprint
-apt-get install libbsapi policykit-1-fingerprint-gui fingerprint-gui
+apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
 # Keylock
-apt-get install indicator-keylock
+apt-get --force-yes install indicator-keylock
 # VMWare
 echo "Install this: https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-12.5.7-5813279.x86_64.bundle"
-echo "Use this key: FV3TR-4RWEM-4805P-6WYEV-QF292"
+echo "Use a key"
 sleep 10
 # Wine
-apt-get install --install-recommends winehq-devel
-apt-get install winbind
-apt-get install winetricks
+apt-get --force-yes install --install-recommends winehq-devel
+apt-get --force-yes install winbind
+apt-get --force-yes install winetricks
 # Diskman
-apt-get install indicator-diskman
+apt-get --force-yes install indicator-diskman
 # Shutter
-apt-get install shutter
+apt-get --force-yes install shutter
 # indicator sysmon
-apt-get install indicator-sysmonitor
+apt-get --force-yes install indicator-sysmonitor
 # Rclone
 snap install rclone --classic
 # Rclone browser
 apt-get install rclone-browser
 # Cloudprint
-apt-get install google-cloud-print-connector
+apt-get --force-yes install google-cloud-print-connector
 wget https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
 install -o root -m 0664 cloud-print-connector.service /etc/systemd/system
 systemctl enable cloud-print-connector.service
 systemctl start cloud-print-connector.service
 # Net-tools
-apt-get install net-tools
+apt-get --force-yes install net-tools
 # Keeweb
 wget https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb
 dpkg -i KeeWeb-1.5.6.linux.x64.deb
@@ -244,14 +244,14 @@ sudo -u "$SUDO_USER" cp Configs/disable_super_key.py.desktop $HOME/.config/autos
 # Variety        #
 ##################
 # Steam
-apt-get install steam
+apt-get --force-yes install steam
 # VLC
-apt-get install vlc
+apt-get --force-yes install vlc
 # gimp
-apt-get install gimp
+apt-get --force-yes install gimp
 # itch.io
 # handbrake
-apt-get install handbrake-gtk handbrake-cli
+apt-get --force-yes install handbrake-gtk handbrake-cli
 # Franz, adapted from https://gist.github.com/ruebenramirez/22234da93f08be65125cc45fc386c1cd
 mkdir -p /opt/franz
 wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz | tar xvz -C /opt/franz/
@@ -271,9 +271,9 @@ rm Franz-linux-x64-4.0.4.tgz
 #mkdir rambox
 #tar -xf rambox.tar.xz -C rambox
 # Dolphin
-apt-get install dolphin-emu-master
+apt-get --force-yes install dolphin-emu-master
 # Variety 
-apt-get install variety
+apt-get --force-yes install variety
 
 ###############
 # Shell:      #
@@ -282,9 +282,9 @@ apt-get install variety
 # Teleconsole #
 ###############
 # Tmux
-apt-get install tmux
+apt-get --force-yes install tmux
 # Fish
-apt-get install fish
+apt-get --force-yes install fish
 # Teleconsole
 curl https://www.teleconsole.com/get.sh | sh
 rm get.sh
@@ -307,18 +307,18 @@ rm linux-brprinter-installer-2.1.1-1
 # Intel 4400 HD
 wget -O https://download.01.org/gfx/ubuntu/17.04/main/pool/main/i/intel-graphics-update-tool/intel-graphics-update-tool_2.0.5_amd64.deb intel.deb
 dpkg -i intel.deb
-apt-get install -f
+apt-get --force-yes install -f
 rm intel.deb
 # TLP
-apt-get install tlp
+apt-get --force-yes install tlp
 cp Configs/tlp /etc/default/tlp
 # DisplayLink
 echo "Download this: http://www.displaylink.com/downloads/file?id=993 and run"
 sleep 10
 # BTRFS
-apt-get install btrfs-tools
+apt-get --force-yes install btrfs-tools
 # Exfat
-exfat-utils exfat-fuse
+apt-get --force-yes install exfat-utils exfat-fuse
 
 ###############
 # OFFICE 2013 #
@@ -335,59 +335,63 @@ echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup
 # Clean-up #
 ############
 # Evince
-apt-get purge evince
+apt-get --force-yes purge evince
 # Totem
-apt-get purge totem*
+apt-get --force-yes purge totem*
 # Rhythmbox
-apt-get purge rhythmbox-*
+apt-get --force-yes purge rhythmbox-*
 # Firefox
-apt-get purge firefox
+apt-get --force-yes purge firefox
 # Gnome-screenshot
-apt-get purge gnome-screenshot
+apt-get --force-yes purge gnome-screenshot
 # Empathy
-apt-get purge empathy-*
+apt-get --force-yes purge empathy-*
 # Apport
-apt-get purge apport
+apt-get --force-yes purge apport
 # Dovecot
-apt-get purge dovecot-*
+apt-get --force-yes purge dovecot-*
 # Whoopsie
-apt-get purge whoopsie
+apt-get --force-yes purge whoopsie
 # Zeitgeist
-apt-get purge zeitgeist
-apt-get purge zeitgeist-datahub
+apt-get --force-yes purge zeitgeist
+apt-get --force-yes purge zeitgeist-datahub
 # Gnome-mines
-apt-get purge gnome-mines
+apt-get --force-yes purge gnome-mines
 # Aisleriot
-apt-get purge aisleriot
+apt-get --force-yes purge aisleriot
 # Shotwell
-apt-get purge shotwell
+apt-get --force-yes purge shotwell
+# Libreoffice
+apt-get --force-yes purge libreoffice-*
 
 #########
 # Theme #
 #########
 wget https://github.com/LinxGem33/OSX-Arc-Darker/releases/download/v1.4.3/osx-arc-collection_1.4.3_amd64.deb
-sudo dpkg -i osx-arc-collection_1.4.3_amd64.deb
+dpkg -i osx-arc-collection_1.4.3_amd64.deb
+apt-get --force-yes install -f
 rm osx-arc-collection_1.4.3_amd64.deb
-gsettings set org.gnome.desktop.interface gtk-theme "Arc-darker-osx"
 
 ##########
 # Config #
 ##########
 
 # Fish
-cp Configs/config.fish $HOME/.config/fish/config.fish
-cp Configs/gh_complete.sh $HOME/.config/fish/gh_complete.sh
-mkdir $HOME/.config/fish/functions
-cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish
+sudo -u $SUDO_USER "mkdir $HOME/.config/fish"
+sudo -u $SUDO_USER "cp Configs/config.fish $HOME/.config/fish/config.fish"
+sudo -u $SUDO_USER "cp Configs/gh_complete.sh $HOME/.config/fish/gh_complete.sh"
+sudo -u $SUDO_USER "mkdir $HOME/.config/fish/functions"
+sudo -u $SUDO_USER "cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish"
 
 # Tmux
-cp Configs/tmux.conf $HOME/.tmux.conf
+sudo -u $SUDO_USER "cp Configs/tmux.conf $HOME/.tmux.conf"
 
 # Shell
 chsh -s /usr/bin/tmux $SUDO_USER
 
 # OS Switch
 cp "SwitchToWindows/Switch to Windows.desktop" "/usr/share/applications/Switch to Windows.desktop"
+chmod +x "/usr/share/applications/Switch to Windows.desktop"
 cp "SwitchToWindows/windowsStartup.py" "/usr/local/bin/windowsStartup.py"
 cp "SwitchToWindows/bootWindows.sh" "/usr/local/bin/bootWindows"
 cp "SwitchToWindows/startup.sh" "/usr/local/bin/refindStartup"
@@ -405,4 +409,3 @@ echo "@reboot root /bin/bash -c \"/sbin/iptables-restore < /etc/iptables_rules\"
 #############
 mkdir /usr/share/icons/SuperMato
 git clone --recursive https://github.com/billwi/SuperMato.git /usr/share/icons/SuperMato
-gsettings set org.gnome.desktop.interface icon-theme 'Supermato'
