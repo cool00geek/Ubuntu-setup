@@ -52,10 +52,7 @@ echo "Setting up repositories"
 # Webupd8
 add-apt-repository ppa:nilarimogard/webupd8
 # Wine
-wget https://dl.winehq.org/wine-builds/Release.key
-sudo apt-key add Release.key
-sudo apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
-rm Release.key
+add-apt-repository ppa:wine/wine-builds
 # Recent notifications
 add-apt-repository ppa:jconti/recent-notifications
 # Handbrake
@@ -124,7 +121,7 @@ apt-get install qpdfview
 # libinput
 apt-get install xserver-xorg-input-libinput
 rm /usr/share/X11/xorg.conf.d/90-libinput.conf
-cp 90-libinput.conf /usr/share/X11/xorg.conf.d/90-libinput.conf
+cp Configs/90-libinput.conf /usr/share/X11/xorg.conf.d/90-libinput.conf
 # Caffeine
 apt-get install caffeine
 # KeeWeb
@@ -140,7 +137,6 @@ apt-get install synergy
 # VS Code        #
 # Git            #
 # Arduino        #
-# Arduino plugin #
 # Umake          #
 # Android        #
 # IDEA           #
@@ -159,11 +155,6 @@ umake web visual-studio-code
 apt-get install git
 # Arduino
 umake ide arduino
-# Arduino plugin
-wget -O http://downloads.arduino.cc/CreateBridgeStable/ArduinoCreateAgent-1.1-linux-x64-installer.run arduinoPlugin.run
-chmod +x arduinoPlugin.run
-sudo -u "$SUDO_USER" ./arduinoPlugin.run
-rm arduinoPlugin.run
 # Android studio
 umake android --accept-license
 # IDEA
@@ -189,6 +180,7 @@ gem install fpm
 # Fingerprint    #
 # keylock        #
 # VMWare         #
+# WINE           #
 # Diskman        #
 # Shutter        #
 # Sysmon         #
@@ -197,6 +189,7 @@ gem install fpm
 # Cloudprint     #
 # net-tools      #
 # Keeweb         #
+# Super alt swap #
 ##################
 # Gparted
 apt-get install gparted
@@ -210,6 +203,10 @@ apt-get install indicator-keylock
 echo "Install this: https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-12.5.7-5813279.x86_64.bundle"
 echo "Use this key: FV3TR-4RWEM-4805P-6WYEV-QF292"
 sleep 10
+# Wine
+apt-get install --install-recommends winehq-devel
+apt-get install winbind
+apt-get install winetricks
 # Diskman
 apt-get install indicator-diskman
 # Shutter
@@ -231,6 +228,9 @@ apt-get install net-tools
 # Keeweb
 wget https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb
 dpkg -i KeeWeb-1.5.6.linux.x64.deb
+# Super alt swap
+cp Configs/appleKeyboardLayoutIndicator.py /usr/bin/appleKeyboardLayoutIndicator.py
+sudo -u "$SUDO_USER" cp Configs/disable_super_key.py.desktop $HOME/.config/autostart
 
 ##################
 # Entertainment: #
@@ -266,6 +266,10 @@ Type=Application
 Categories=Messaging,Internet
 EOF"
 rm Franz-linux-x64-4.0.4.tgz
+# Rambox
+#wget "https://getrambox.herokuapp.com/download/linux_64?filetype=deb" -O rambox.tar.xz
+#mkdir rambox
+#tar -xf rambox.tar.xz -C rambox
 # Dolphin
 apt-get install dolphin-emu-master
 # Variety 
@@ -307,7 +311,7 @@ apt-get install -f
 rm intel.deb
 # TLP
 apt-get install tlp
-cp tlp /etc/default/tlp
+cp Configs/tlp /etc/default/tlp
 # DisplayLink
 echo "Download this: http://www.displaylink.com/downloads/file?id=993 and run"
 sleep 10
@@ -319,7 +323,13 @@ exfat-utils exfat-fuse
 ###############
 # OFFICE 2013 #
 ###############
-
+echo "Set the Windows Version to Win 7"
+WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winecfg
+echo "Install msxml6 in additional components"
+echo "Then set HKCU\Software\Wine\Direct3D\MaxVersionGL to 30002 in hex"
+WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winetricks
+echo "Install Office 2013 with this whenever you're ready:"
+echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup.x86.exe"
 
 ############
 # Clean-up #
@@ -352,18 +362,26 @@ apt-get purge aisleriot
 # Shotwell
 apt-get purge shotwell
 
+#########
+# Theme #
+#########
+wget https://github.com/LinxGem33/OSX-Arc-Darker/releases/download/v1.4.3/osx-arc-collection_1.4.3_amd64.deb
+sudo dpkg -i osx-arc-collection_1.4.3_amd64.deb
+rm osx-arc-collection_1.4.3_amd64.deb
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-darker-osx"
+
 ##########
 # Config #
 ##########
 
 # Fish
-cp config.fish $HOME/.config/fish/config.fish
-cp gh_complete.sh $HOME/.config/fish/gh_complete.sh
+cp Configs/config.fish $HOME/.config/fish/config.fish
+cp Configs/gh_complete.sh $HOME/.config/fish/gh_complete.sh
 mkdir $HOME/.config/fish/functions
-cp fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish
+cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish
 
 # Tmux
-cp tmux.conf $HOME/.tmux.conf
+cp Configs/tmux.conf $HOME/.tmux.conf
 
 # Shell
 chsh -s /usr/bin/tmux $SUDO_USER
@@ -379,7 +397,7 @@ chattr +i "/usr/local/bin/startup"
 echo "@reboot root /usr/local/bin/refindStartup" >> /etc/crontab
 
 # IPTables
-cp iptables_rules /etc/iptables_rules
+cp Configs/iptables_rules /etc/iptables_rules
 echo "@reboot root /bin/bash -c \"/sbin/iptables-restore < /etc/iptables_rules\"" >> /etc/crontab
 
 #############
@@ -387,7 +405,4 @@ echo "@reboot root /bin/bash -c \"/sbin/iptables-restore < /etc/iptables_rules\"
 #############
 mkdir /usr/share/icons/SuperMato
 git clone --recursive https://github.com/billwi/SuperMato.git /usr/share/icons/SuperMato
-
-###########
-# Updates #
-###########
+gsettings set org.gnome.desktop.interface icon-theme 'Supermato'

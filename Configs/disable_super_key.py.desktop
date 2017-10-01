@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/bin/disable_super_key.py
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Fullscreen savior
+Name=Fullscreen savior
+Comment[en_US]=
+Comment=
