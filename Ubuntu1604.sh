@@ -65,12 +65,10 @@ add-apt-repository ppa:fingerprint/fingerprint-gui
 # Waterfox
 echo "deb https://hawkeye116477.github.io/waterfox-deb release main" | tee /etc/apt/sources.list.d/waterfox-release-hawkeye116477.list
 curl https://hawkeye116477.github.io/waterfox-deb/hawkeye116477.key | apt-key add -
-rm hawkeye116477.key
 # Dolphin
 add-apt-repository ppa:dolphin-emu/ppa
 # Itch.io
 curl https://dl.itch.ovh/archive.key | apt-key add -
-rm archive.key
 echo "deb https://dl.bintray.com/itchio/deb xenial main" | sudo tee /etc/apt/sources.list.d/itchio.list
 # Caffeine
 add-apt-repository ppa:caffeine-developers/ppa
@@ -89,9 +87,9 @@ rm RPM-GPG-GROUP-KEY-ilg
 # Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
 sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-rm linux_signing_key.pub
 # Update
 apt-get update
+apt-get dist-upgrade
 
 
 ###########
@@ -105,7 +103,6 @@ apt-get update
 # Unity tweak   #
 # Chrome        #
 # qpdfview      #
-# libinput      #
 # Caffeine      #
 # KeeWeb        #
 # Synergy       #
@@ -114,29 +111,26 @@ apt-get update
 apt-get --force-yes install waterfox
 # Albert
 apt-get --force-yes install albert
-sudo -u $SUDO_USER "cp albert.conf $HOME/.config/albert.conf"
+sudo -u $SUDO_USER cp albert.conf $HOME/.config/albert.conf
 # Unity tweak tool
 apt-get --force-yes install unity-tweak-tool
 # Chrome
 apt-get --force-yes install google-chrome-stable
 # qpdfview
 apt-get --force-yes install qpdfview
-# libinput
-apt-get --force-yes install xserver-xorg-input-libinput
-rm /usr/share/X11/xorg.conf.d/90-libinput.conf
-cp Configs/90-libinput.conf /usr/share/X11/xorg.conf.d/90-libinput.conf
 # Caffeine
 apt-get --force-yes install caffeine
 # KeeWeb
-wget -O https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb keeweb.deb
-dpkg -i keeweb.deb
+wget https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb
+dpkg -i KeeWeb-1.5.6.linux.x64.deb
 apt-get --force-yes install -f
-rm keeweb.deb
+rm KeeWeb-1.5.6.linux.x64.deb
 # Synergy
 apt-get --force-yes install synergy
 
 ##################
 # Dev:           #
+# Ubuntu make    #
 # VS Code        #
 # Git            #
 # Umake          #
@@ -181,14 +175,12 @@ gem install fpm
 # keylock        #
 # VMWare         #
 # WINE           #
-# Diskman        #
 # Shutter        #
 # Sysmon         #
 # Rclone         #
 # Rclone browser #
 # Cloudprint     #
 # net-tools      #
-# Keeweb         #
 # Super alt swap #
 ##################
 # Gparted
@@ -207,12 +199,8 @@ sleep 10
 apt-get --force-yes install --install-recommends winehq-devel
 apt-get --force-yes install winbind
 apt-get --force-yes install winetricks
-# Diskman
-apt-get --force-yes install indicator-diskman
 # Shutter
 apt-get --force-yes install shutter
-# indicator sysmon
-apt-get --force-yes install indicator-sysmonitor
 # Rclone
 snap install rclone --classic
 # Rclone browser
@@ -225,9 +213,6 @@ systemctl enable cloud-print-connector.service
 systemctl start cloud-print-connector.service
 # Net-tools
 apt-get --force-yes install net-tools
-# Keeweb
-wget https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb
-dpkg -i KeeWeb-1.5.6.linux.x64.deb
 # Super alt swap
 cp Configs/appleKeyboardLayoutIndicator.py /usr/bin/appleKeyboardLayoutIndicator.py
 sudo -u "$SUDO_USER" cp Configs/disable_super_key.py.desktop $HOME/.config/autostart
@@ -265,7 +250,6 @@ Terminal=false
 Type=Application
 Categories=Messaging,Internet
 EOF"
-rm Franz-linux-x64-4.0.4.tgz
 # Rambox
 #wget "https://getrambox.herokuapp.com/download/linux_64?filetype=deb" -O rambox.tar.xz
 #mkdir rambox
@@ -287,7 +271,6 @@ apt-get --force-yes install tmux
 apt-get --force-yes install fish
 # Teleconsole
 curl https://www.teleconsole.com/get.sh | sh
-rm get.sh
 
 ##################
 # Drivers        #
@@ -299,16 +282,16 @@ rm get.sh
 # EXFat          #
 ##################
 # Brother HL2240
-wget -O http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.1.1-1.gz
+wget http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.1.1-1.gz
 gunzip linux-brprinter-installer-2.1.1-1.gz
 chmod +x linux-brprinter-installer-2.1.1-1
 ./linux-brprinter-installer-2.1.1-1
 rm linux-brprinter-installer-2.1.1-1
 # Intel 4400 HD
-wget -O https://download.01.org/gfx/ubuntu/17.04/main/pool/main/i/intel-graphics-update-tool/intel-graphics-update-tool_2.0.5_amd64.deb intel.deb
-dpkg -i intel.deb
+wget https://download.01.org/gfx/ubuntu/17.04/main/pool/main/i/intel-graphics-update-tool/intel-graphics-update-tool_2.0.5_amd64.deb
+dpkg -i intel-graphics-update-tool_2.0.5_amd64.deb
 apt-get --force-yes install -f
-rm intel.deb
+rm intel-graphics-update-tool_2.0.5_amd64.deb
 # TLP
 apt-get --force-yes install tlp
 cp Configs/tlp /etc/default/tlp
@@ -377,14 +360,14 @@ rm osx-arc-collection_1.4.3_amd64.deb
 ##########
 
 # Fish
-sudo -u $SUDO_USER "mkdir $HOME/.config/fish"
-sudo -u $SUDO_USER "cp Configs/config.fish $HOME/.config/fish/config.fish"
-sudo -u $SUDO_USER "cp Configs/gh_complete.sh $HOME/.config/fish/gh_complete.sh"
-sudo -u $SUDO_USER "mkdir $HOME/.config/fish/functions"
-sudo -u $SUDO_USER "cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish"
+sudo -u $SUDO_USER mkdir $HOME/.config/fish
+sudo -u $SUDO_USER cp Configs/config.fish $HOME/.config/fish/config.fish
+sudo -u $SUDO_USER cp Configs/gh_complete.sh $HOME/.config/fish/gh_complete.sh
+sudo -u $SUDO_USER mkdir $HOME/.config/fish/functions
+sudo -u $SUDO_USER cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish
 
 # Tmux
-sudo -u $SUDO_USER "cp Configs/tmux.conf $HOME/.tmux.conf"
+sudo -u $SUDO_USER cp Configs/tmux.conf $HOME/.tmux.conf
 
 # Shell
 chsh -s /usr/bin/tmux $SUDO_USER
@@ -397,7 +380,7 @@ cp "SwitchToWindows/bootWindows.sh" "/usr/local/bin/bootWindows"
 cp "SwitchToWindows/startup.sh" "/usr/local/bin/refindStartup"
 chattr +i "/usr/local/bin/windowsStartup.py"
 chattr +i "/usr/local/bin/bootWindows"
-chattr +i "/usr/local/bin/startup"
+chattr +i "/usr/local/bin/refindStartup"
 echo "@reboot root /usr/local/bin/refindStartup" >> /etc/crontab
 
 # IPTables
