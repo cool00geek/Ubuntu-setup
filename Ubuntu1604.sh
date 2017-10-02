@@ -111,7 +111,7 @@ apt-get dist-upgrade
 apt-get --force-yes install waterfox
 # Albert
 apt-get --force-yes install albert
-sudo -u $SUDO_USER cp albert.conf $HOME/.config/albert.conf
+sudo -u $SUDO_USER cp Configs/albert.conf $HOME/.config/albert.conf
 # Unity tweak tool
 apt-get --force-yes install unity-tweak-tool
 # Chrome
@@ -370,7 +370,7 @@ sudo -u $SUDO_USER cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish
 sudo -u $SUDO_USER cp Configs/tmux.conf $HOME/.tmux.conf
 
 # Shell
-chsh -s /usr/bin/tmux $SUDO_USER
+chsh -s /usr/bin/fish $SUDO_USER
 
 # OS Switch
 cp "SwitchToWindows/Switch to Windows.desktop" "/usr/share/applications/Switch to Windows.desktop"
@@ -386,6 +386,9 @@ echo "@reboot root /usr/local/bin/refindStartup" >> /etc/crontab
 # IPTables
 cp Configs/iptables_rules /etc/iptables_rules
 echo "@reboot root /bin/bash -c \"/sbin/iptables-restore < /etc/iptables_rules\"" >> /etc/crontab
+
+# Show username
+gsettings set com.canonical.indicator.session show-real-name-on-panel true
 
 #############
 # Git repos #
