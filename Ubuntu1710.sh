@@ -6,6 +6,15 @@
 #########################################
 
 
+################
+# Notes!
+# Handbrake is broken on artful
+# Wine is broken on artful
+# Dolphin is too
+# Fingerprint ^
+# Rclone browser
+
+
 
 ###################
 # Checking system #
@@ -40,7 +49,6 @@ apt-get install curl
 # Waterfox      #
 # Dolphin       #
 # Itch.io       #
-# Ubuntu Make   #
 # Thunderbird   #
 # GIMP          #
 # Rclone browser#
@@ -53,32 +61,29 @@ echo "Setting up repositories"
 # Webupd8
 add-apt-repository ppa:nilarimogard/webupd8
 # Wine
-wget https://dl.winehq.org/wine-builds/Release.key
-apt-key add Release.key
-apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
-rm Release.key
-# Recent notifications
-add-apt-repository ppa:jconti/recent-notifications
+sudo dpkg --add-architecture i386 
+#wget https://dl.winehq.org/wine-builds/Release.key
+#apt-key add Release.key
+#apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
+#rm Release.key
 # Handbrake
-add-apt-repository ppa:stebbins/handbrake-releases
+#add-apt-repository ppa:stebbins/handbrake-releases
 # Fingerprint
-add-apt-repository ppa:fingerprint/fingerprint-gui
+#add-apt-repository ppa:fingerprint/fingerprint-gui
 # Waterfox
 echo "deb https://dl.bintray.com/hawkeye116477/waterfox-deb release main" | tee -a /etc/apt/sources.list
 curl https://bintray.com/user/downloadSubjectPublicKey?username=hawkeye116477 | apt-key add -
 # Dolphin
-add-apt-repository ppa:dolphin-emu/ppa
+#add-apt-repository ppa:dolphin-emu/ppa
 # Itch.io
 curl https://dl.itch.ovh/archive.key | apt-key add -
 echo "deb https://dl.bintray.com/itchio/deb xenial main" | sudo tee /etc/apt/sources.list.d/itchio.list
-# Ubuntu make
-add-apt-repository ppa:ubuntu-desktop/ubuntu-make
 # Thunderbird
 add-apt-repository ppa:mozillateam/thunderbird-next
 # Gimp
 add-apt-repository ppa:otto-kesselgulasch/gimp
 # Rclone browser
-add-apt-repository ppa:mmozeiko/rclone-browser
+#add-apt-repository ppa:mmozeiko/rclone-browser
 # GFX
 wget https://download.01.org/gfx/RPM-GPG-GROUP-KEY-ilg
 apt-key add RPM-GPG-GROUP-KEY-ilg
@@ -167,7 +172,6 @@ gem install fpm
 # Gparted        #
 # ARandR         #
 # Fingerprint    #
-# keylock        #
 # VMWare         #
 # WINE           #
 # Shutter        #
@@ -182,23 +186,21 @@ gem install fpm
 # Gparted
 apt-get --force-yes install gparted
 # Fingerprint
-apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
-# Keylock
-apt-get --force-yes install indicator-keylock
+#apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
 # VMWare
 echo "Install this: https://www.vmware.com/go/tryworkstation-linux-64"
 echo "Use a key"
 sleep 10
 # Wine
-apt-get --force-yes install --install-recommends winehq-devel
-apt-get --force-yes install winbind
-apt-get --force-yes install winetricks
+#apt-get --force-yes install --install-recommends winehq-devel
+#apt-get --force-yes install winbind
+#apt-get --force-yes install winetricks
 # Shutter
 apt-get --force-yes install shutter
 # Rclone
 snap install rclone --classic
 # Rclone browser
-apt-get install rclone-browser
+#apt-get install rclone-browser
 # Cloudprint
 apt-get --force-yes install google-cloud-print-connector
 wget https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
@@ -212,6 +214,7 @@ cp Configs/appleKeyboardLayoutIndicator.py /usr/bin/appleKeyboardLayoutIndicator
 sudo -u "$SUDO_USER" cp Configs/disable_super_key.py.desktop $HOME/.config/autostart
 # Shell connector
 apt-get install chrome-gnome-shell
+apt-get install gnome-shell-extensions
 
 ##################
 # Entertainment: #
@@ -233,7 +236,7 @@ apt-get --force-yes install vlc
 apt-get --force-yes install gimp
 # itch.io
 # handbrake
-apt-get --force-yes install handbrake-gtk handbrake-cli
+#apt-get --force-yes install handbrake-gtk handbrake-cli
 # Franz, adapted from https://gist.github.com/ruebenramirez/22234da93f08be65125cc45fc386c1cd
 mkdir -p /opt/franz
 wget -qO- https://github.com/meetfranz/franz-app/releases/download/4.0.4/Franz-linux-x64-4.0.4.tgz | tar xvz -C /opt/franz/
@@ -254,7 +257,7 @@ EOF"
 # Hangups
 pip3 install hangups
 # Dolphin
-apt-get --force-yes install dolphin-emu-master
+#apt-get --force-yes install dolphin-emu-master
 # Variety 
 apt-get --force-yes install variety
 
@@ -311,13 +314,13 @@ apt-get install touchpad-indicator
 ###############
 # OFFICE 2013 #
 ###############
-echo "Set the Windows Version to Win 7"
-WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winecfg
-echo "Install msxml6 in additional components"
-echo "Then set HKCU\Software\Wine\Direct3D\MaxVersionGL to 30002 in hex"
-WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winetricks
-echo "Install Office 2013 with this whenever you're ready:"
-echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup.x86.exe"
+#echo "Set the Windows Version to Win 7"
+#WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winecfg
+#echo "Install msxml6 in additional components"
+#echo "Then set HKCU\Software\Wine\Direct3D\MaxVersionGL to 30002 in hex"
+#WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winetricks
+#echo "Install Office 2013 with this whenever you're ready:"
+#echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup.x86.exe"
 
 ############
 # Clean-up #

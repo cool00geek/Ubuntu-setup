@@ -54,6 +54,7 @@ echo "Setting up repositories"
 # Webupd8
 add-apt-repository ppa:nilarimogard/webupd8
 # Wine
+sudo dpkg --add-architecture i386 
 wget https://dl.winehq.org/wine-builds/Release.key
 apt-key add Release.key
 apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
