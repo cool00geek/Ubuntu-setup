@@ -103,7 +103,6 @@ apt-get dist-upgrade
 # Albert        #
 # Unity tweak   #
 # Chrome        #
-# qpdfview      #
 # Caffeine      #
 # KeeWeb        #
 # Synergy       #
@@ -117,8 +116,6 @@ sudo -u $SUDO_USER cp Configs/albert.conf $HOME/.config/albert.conf
 apt-get --force-yes install unity-tweak-tool
 # Chrome
 apt-get --force-yes install google-chrome-stable
-# qpdfview
-apt-get --force-yes install qpdfview
 # Caffeine
 apt-get --force-yes install caffeine
 # KeeWeb
@@ -321,8 +318,6 @@ echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup
 ############
 # Clean-up #
 ############
-# Evince
-apt-get --force-yes purge evince
 # Totem
 apt-get --force-yes purge totem*
 # Rhythmbox
