@@ -56,6 +56,7 @@ add-apt-repository ppa:nilarimogard/webupd8
 wget https://dl.winehq.org/wine-builds/Release.key
 apt-key add Release.key
 apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
+rm Release.key
 # Recent notifications
 add-apt-repository ppa:jconti/recent-notifications
 # Handbrake
@@ -63,8 +64,8 @@ add-apt-repository ppa:stebbins/handbrake-releases
 # Fingerprint
 add-apt-repository ppa:fingerprint/fingerprint-gui
 # Waterfox
-echo "deb https://hawkeye116477.github.io/waterfox-deb release main" | tee /etc/apt/sources.list.d/waterfox-release-hawkeye116477.list
-curl https://hawkeye116477.github.io/waterfox-deb/hawkeye116477.key | apt-key add -
+echo "deb https://dl.bintray.com/hawkeye116477/waterfox-deb release main" | tee -a /etc/apt/sources.list
+curl https://bintray.com/user/downloadSubjectPublicKey?username=hawkeye116477 | apt-key add -
 # Dolphin
 add-apt-repository ppa:dolphin-emu/ppa
 # Itch.io
@@ -280,6 +281,7 @@ curl https://www.teleconsole.com/get.sh | sh
 # Displaylink    #
 # BTRFS          #
 # EXFat          #
+# Solaar         #
 ##################
 # Brother HL2240
 wget http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.1.1-1.gz
@@ -302,6 +304,8 @@ sleep 10
 apt-get --force-yes install btrfs-tools
 # Exfat
 apt-get --force-yes install exfat-utils exfat-fuse
+# Solaar
+apt-get install solaar
 
 ###############
 # OFFICE 2013 #
