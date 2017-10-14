@@ -40,7 +40,6 @@ apt-get install curl
 # Waterfox      #
 # Dolphin       #
 # Itch.io       #
-# Caffeine      #
 # Ubuntu Make   #
 # Thunderbird   #
 # GIMP          #
@@ -72,8 +71,6 @@ add-apt-repository ppa:dolphin-emu/ppa
 # Itch.io
 curl https://dl.itch.ovh/archive.key | apt-key add -
 echo "deb https://dl.bintray.com/itchio/deb xenial main" | sudo tee /etc/apt/sources.list.d/itchio.list
-# Caffeine
-add-apt-repository ppa:caffeine-developers/ppa
 # Ubuntu make
 add-apt-repository ppa:ubuntu-desktop/ubuntu-make
 # Thunderbird
@@ -104,9 +101,8 @@ apt-get dist-upgrade
 # Requirements: #
 # Waterfox      #
 # Albert        #
-# Unity tweak   #
+# Gnome tweak   #
 # Chrome        #
-# Caffeine      #
 # KeeWeb        #
 # Synergy       #
 #################
@@ -115,12 +111,10 @@ apt-get --force-yes install waterfox
 # Albert
 apt-get --force-yes install albert
 sudo -u $SUDO_USER cp Configs/albert.conf $HOME/.config/albert.conf
-# Unity tweak tool
-apt-get --force-yes install unity-tweak-tool
+# Gnome tweak tool
+apt-get --force-yes install gnome-tweak-tool
 # Chrome
 apt-get --force-yes install google-chrome-stable
-# Caffeine
-apt-get --force-yes install caffeine
 # KeeWeb
 wget https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb
 dpkg -i KeeWeb-1.5.6.linux.x64.deb
@@ -183,11 +177,10 @@ gem install fpm
 # Cloudprint     #
 # net-tools      #
 # Super alt swap #
+# Shell connector#
 ##################
 # Gparted
 apt-get --force-yes install gparted
-# ARandR
-apt-get --force-yes install arandr
 # Fingerprint
 apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
 # Keylock
@@ -217,6 +210,8 @@ apt-get --force-yes install net-tools
 # Super alt swap
 cp Configs/appleKeyboardLayoutIndicator.py /usr/bin/appleKeyboardLayoutIndicator.py
 sudo -u "$SUDO_USER" cp Configs/disable_super_key.py.desktop $HOME/.config/autostart
+# Shell connector
+apt-get install chrome-gnome-shell
 
 ##################
 # Entertainment: #
@@ -335,17 +330,12 @@ apt-get --force-yes purge rhythmbox-*
 apt-get --force-yes purge firefox
 # Gnome-screenshot
 apt-get --force-yes purge gnome-screenshot
-# Empathy
-apt-get --force-yes purge empathy-*
 # Apport
 apt-get --force-yes purge apport
-# Dovecot
-apt-get --force-yes purge dovecot-*
 # Whoopsie
 apt-get --force-yes purge whoopsie
 # Zeitgeist
-apt-get --force-yes purge zeitgeist
-apt-get --force-yes purge zeitgeist-datahub
+apt-get --force-yes purge zeitgeist-core
 # Gnome-mines
 apt-get --force-yes purge gnome-mines
 # Aisleriot
@@ -354,6 +344,10 @@ apt-get --force-yes purge aisleriot
 apt-get --force-yes purge shotwell
 # Libreoffice
 apt-get --force-yes purge libreoffice-*
+# Sudoku
+apt-get --force-yes purge gnome-sudoku
+# Mahjongg
+apt-get --force-yes purge gnome-mahjongg
 
 #########
 # Theme #
@@ -362,6 +356,11 @@ wget https://github.com/LinxGem33/OSX-Arc-Darker/releases/download/v1.4.3/osx-ar
 dpkg -i osx-arc-collection_1.4.3_amd64.deb
 apt-get --force-yes install -f
 rm osx-arc-collection_1.4.3_amd64.deb
+
+###############
+# Gnome Shell #
+###############
+
 
 ##########
 # Config #
@@ -396,6 +395,9 @@ echo "@reboot root /usr/local/bin/refindStartup" >> /etc/crontab
 # IPTables
 cp Configs/iptables_rules /etc/iptables_rules
 echo "@reboot root /bin/bash -c \"/sbin/iptables-restore < /etc/iptables_rules\"" >> /etc/crontab
+
+# Windows controls on left
+gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
 
 # Show username
 gsettings set com.canonical.indicator.session show-real-name-on-panel true
