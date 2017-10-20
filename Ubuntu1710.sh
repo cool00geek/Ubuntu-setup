@@ -48,6 +48,7 @@ apt-get install curl
 # Fingerprint   #
 # Waterfox      #
 # Dolphin       #
+# Fish          #
 # Itch.io       #
 # Thunderbird   #
 # GIMP          #
@@ -75,6 +76,8 @@ echo "deb https://dl.bintray.com/hawkeye116477/waterfox-deb release main" | tee 
 curl https://bintray.com/user/downloadSubjectPublicKey?username=hawkeye116477 | apt-key add -
 # Dolphin
 #add-apt-repository ppa:dolphin-emu/ppa
+# Fish
+sudo apt-add-repository ppa:fish-shell/release-2
 # Itch.io
 curl https://dl.itch.ovh/archive.key | apt-key add -
 echo "deb https://dl.bintray.com/itchio/deb xenial main" | sudo tee /etc/apt/sources.list.d/itchio.list
