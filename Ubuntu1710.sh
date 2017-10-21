@@ -6,13 +6,14 @@
 #########################################
 
 
-################
-# Notes!
-# Handbrake is broken on artful
-# Wine is broken on artful
-# Dolphin is too
-# Fingerprint ^
-# Rclone browser
+################################
+# Notes!                       #
+# Handbrake has no artful      #
+#    -- Git version avail      #
+# Wine has no artful           #
+# Rclone browser has no artful #
+#    -- Github version avail   #
+################################
 
 
 
@@ -70,12 +71,12 @@ sudo dpkg --add-architecture i386
 # Handbrake
 #add-apt-repository ppa:stebbins/handbrake-releases
 # Fingerprint
-#add-apt-repository ppa:fingerprint/fingerprint-gui
+add-apt-repository ppa:fingerprint/fingerprint-gui
 # Waterfox
 echo "deb https://dl.bintray.com/hawkeye116477/waterfox-deb release main" | tee -a /etc/apt/sources.list
 curl https://bintray.com/user/downloadSubjectPublicKey?username=hawkeye116477 | apt-key add -
 # Dolphin
-#add-apt-repository ppa:dolphin-emu/ppa
+add-apt-repository ppa:dolphin-emu/ppa
 # Fish
 sudo apt-add-repository ppa:fish-shell/release-2
 # Itch.io
@@ -189,7 +190,7 @@ gem install fpm
 # Gparted
 apt-get --force-yes install gparted
 # Fingerprint
-#apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
+apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
 # VMWare
 echo "Install this: https://www.vmware.com/go/tryworkstation-linux-64"
 echo "Use a key"
@@ -260,7 +261,7 @@ EOF"
 # Hangups
 pip3 install hangups
 # Dolphin
-#apt-get --force-yes install dolphin-emu-master
+apt-get --force-yes install dolphin-emu-master
 # Variety 
 apt-get --force-yes install variety
 
