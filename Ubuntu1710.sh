@@ -269,6 +269,7 @@ apt-get --force-yes install variety
 # Tmux        #
 # Fish        #
 # Teleconsole #
+# Guake       #
 ###############
 # Tmux
 apt-get --force-yes install tmux
@@ -276,6 +277,8 @@ apt-get --force-yes install tmux
 apt-get --force-yes install fish
 # Teleconsole
 curl https://www.teleconsole.com/get.sh | sh
+# Guake
+apt-get --force-yes install curl
 
 ##################
 # Drivers        #
