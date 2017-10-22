@@ -10,7 +10,6 @@
 # Notes!                       #
 # Handbrake has no artful      #
 #    -- Git version avail      #
-# Wine has no artful           #
 # Rclone browser has no artful #
 #    -- Github version avail   #
 ################################
@@ -64,10 +63,10 @@ echo "Setting up repositories"
 add-apt-repository ppa:nilarimogard/webupd8
 # Wine
 sudo dpkg --add-architecture i386 
-#wget https://dl.winehq.org/wine-builds/Release.key
-#apt-key add Release.key
-#apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
-#rm Release.key
+wget https://dl.winehq.org/wine-builds/Release.key
+apt-key add Release.key
+apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
+rm Release.key
 # Handbrake
 #add-apt-repository ppa:stebbins/handbrake-releases
 # Fingerprint
@@ -196,9 +195,9 @@ echo "Install this: https://www.vmware.com/go/tryworkstation-linux-64"
 echo "Use a key"
 sleep 10
 # Wine
-#apt-get --force-yes install --install-recommends winehq-devel
-#apt-get --force-yes install winbind
-#apt-get --force-yes install winetricks
+apt-get --force-yes install --install-recommends winehq-devel
+apt-get --force-yes install winbind
+apt-get --force-yes install winetricks
 # Shutter
 apt-get --force-yes install shutter
 # Rclone
