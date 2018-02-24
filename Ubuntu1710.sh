@@ -196,4 +196,4 @@ gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maxi
 # Git repos #
 #############
 mkdir /usr/share/icons/SuperMato
-git clone --recursive https://github.com/billwi/SuperMato.git /usr/share/icons/SuperMato
+git clone --recursive https://github.com/cool00geek/SuperMato.git /usr/share/icons/SuperMato
