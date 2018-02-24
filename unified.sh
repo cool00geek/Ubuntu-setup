@@ -264,7 +264,7 @@ gsettings set com.canonical.indicator.session show-real-name-on-panel true
 # Git repos #
 #############
 mkdir /usr/share/icons/SuperMato
-git clone --recursive https://github.com/billwi/SuperMato.git /usr/share/icons/SuperMato
+git clone --recursive https://github.com/cool00geek/SuperMato.git /usr/share/icons/SuperMato
 
 # VNC
 # gnome-terminal --title 'VNC Server Licensing - sudo password required' --disable-factory -x sudo '/usr/bin/vnclicensewiz' '--helper'
