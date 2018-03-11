@@ -249,7 +249,10 @@ rm osx-arc-collection_1.4.3_amd64.deb
 echo "Install all the fonts"
 WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winetricks
 echo "Install Office 2013 with this whenever you're ready:"
+echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=32 winetricks"
+echo "Change riched20 to use native"
 echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup.x86.exe"
+sleep 10
 
 
 ##########
@@ -257,30 +260,30 @@ echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup
 ##########
 
 # Fish
-sudo -u $SUDO_USER mkdir $HOME/.config/fish
-sudo -u $SUDO_USER cp Configs/config.fish $HOME/.config/fish/config.fish
-sudo -u $SUDO_USER cp Configs/gh_complete.sh $HOME/.config/fish/gh_complete.sh
-sudo -u $SUDO_USER mkdir $HOME/.config/fish/functions
-sudo -u $SUDO_USER cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish
+#sudo -u $SUDO_USER mkdir $HOME/.config/fish
+#sudo -u $SUDO_USER cp Configs/config.fish $HOME/.config/fish/config.fish
+#sudo -u $SUDO_USER cp Configs/gh_complete.sh $HOME/.config/fish/gh_complete.sh
+#sudo -u $SUDO_USER mkdir $HOME/.config/fish/functions
+#sudo -u $SUDO_USER cp Configs/fish_prompt.fish $HOME/.config/fish/functions/fish_prompt.fish
 
 # Tmux
-sudo -u $SUDO_USER cp Configs/tmux.conf $HOME/.tmux.conf
-sudo -u $SUDO_USER cp Configs/tmux.conf.local $HOME/.tmux.conf.local
-sudo -u $SUDO_USER cp --recursive Configs/tmux $HOME/.tmux
+#sudo -u $SUDO_USER cp Configs/tmux.conf $HOME/.tmux.conf
+#sudo -u $SUDO_USER cp Configs/tmux.conf.local $HOME/.tmux.conf.local
+#sudo -u $SUDO_USER cp --recursive Configs/tmux $HOME/.tmux
 
 # Shell
-chsh -s /usr/bin/tmux $SUDO_USER
+#chsh -s /usr/bin/tmux $SUDO_USER
 
 # OS Switch
-cp "SwitchToWindows/Switch to Windows.desktop" "/usr/share/applications/Switch to Windows.desktop"
-chmod +x "/usr/share/applications/Switch to Windows.desktop"
-cp "SwitchToWindows/windowsStartup.py" "/usr/local/bin/windowsStartup.py"
-cp "SwitchToWindows/bootWindows.sh" "/usr/local/bin/bootWindows"
-cp "SwitchToWindows/startup.sh" "/usr/local/bin/refindStartup"
-chattr +i "/usr/local/bin/windowsStartup.py"
-chattr +i "/usr/local/bin/bootWindows"
-chattr +i "/usr/local/bin/refindStartup"
-echo "@reboot root /usr/local/bin/refindStartup" >> /etc/crontab
+#cp "SwitchToWindows/Switch to Windows.desktop" "/usr/share/applications/Switch to Windows.desktop"
+#chmod +x "/usr/share/applications/Switch to Windows.desktop"
+#cp "SwitchToWindows/windowsStartup.py" "/usr/local/bin/windowsStartup.py"
+#cp "SwitchToWindows/bootWindows.sh" "/usr/local/bin/bootWindows"
+#cp "SwitchToWindows/startup.sh" "/usr/local/bin/refindStartup"
+#chattr +i "/usr/local/bin/windowsStartup.py"
+#chattr +i "/usr/local/bin/bootWindows"
+#chattr +i "/usr/local/bin/refindStartup"
+#echo "@reboot root /usr/local/bin/refindStartup" >> /etc/crontab
 
 ##########
 # Config #
