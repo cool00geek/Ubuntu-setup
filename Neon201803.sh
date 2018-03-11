@@ -60,30 +60,23 @@ apt-get dist-upgrade
 
 #################
 # Requirements: #
-# Gnome tweak   #
 #################
-# Gnome tweak tool
-apt-get --force-yes install gnome-tweak-tool
 
 
 ##################
 # Sys utilities: #
-# Shell connector#
 ##################
-# Shell connector
-apt-get install chrome-gnome-shell
-apt-get install gnome-shell-extensions
 
 ##################
 # Entertainment: #
 # Handbrake      #
-# Guake          #
+# Yakuake        #
 ##################
 
 # handbrake
 #apt-get --force-yes install handbrake-gtk handbrake-cli
 # Guake
-apt-get --force-yes install guake
+apt-get --force-yes install yakuake
 
 
 ##################
@@ -94,37 +87,7 @@ apt-get --force-yes install guake
 ############
 # Clean-up #
 ############
-# Totem
-apt-get --force-yes purge totem*
-# Rhythmbox
-apt-get --force-yes purge rhythmbox-*
-# Firefox
-apt-get --force-yes purge firefox
-# Gnome-screenshot
-apt-get --force-yes purge gnome-screenshot
-# Apport
-apt-get --force-yes purge apport
-# Whoopsie
-apt-get --force-yes purge whoopsie
-# Zeitgeist
-apt-get --force-yes purge zeitgeist-core
-# Gnome-mines
-apt-get --force-yes purge gnome-mines
-# Aisleriot
-apt-get --force-yes purge aisleriot
-# Shotwell
-apt-get --force-yes purge shotwell
-# Libreoffice
-apt-get --force-yes purge libreoffice-*
-# Sudoku
-apt-get --force-yes purge gnome-sudoku
-# Mahjongg
-apt-get --force-yes purge gnome-mahjongg
 
-
-###############
-# Gnome Shell #
-###############
 
 
 ##########

@@ -6,6 +6,7 @@
 #########################################
 
 apt-get install curl
+
 #################
 # REPOSITORIES: #
 # Webupd8       #
@@ -19,7 +20,6 @@ apt-get install curl
 # Rclone browser#
 # GFX           #
 # Google Chrome #
-# Touchpad indi #
 #################
 
 echo "Setting up repositories"
@@ -54,8 +54,6 @@ rm RPM-GPG-GROUP-KEY-ilg
 # Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
 sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-# Touchpad indicator
-add-apt-repository ppa:atareao/atareao
 # Update
 apt-get update
 apt-get dist-upgrade
@@ -90,14 +88,46 @@ rm KeeWeb-1.5.6.linux.x64.deb
 apt-get --force-yes install synergy
 
 ##################
+# Sys utilities: #
+# Gparted        #
+# Fingerprint    #
+# VMWare         #
+# WINE           #
+# Shutter        #
+# Cloudprint     #
+# net-tools      #
+# Super alt swap #
+##################
+# Gparted
+apt-get --force-yes install gparted
+# Fingerprint
+apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
+# VMWare
+echo "Install this: https://www.vmware.com/go/tryworkstation-linux-64"
+echo "Use a key"
+# Wine
+apt-get --force-yes install --install-recommends winehq-stable
+apt-get --force-yes install winbind
+apt-get --force-yes install winetricks
+# Shutter
+apt-get --force-yes install shutter
+# Cloudprint
+apt-get --force-yes install google-cloud-print-connector
+wget https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
+install -o root -m 0664 cloud-print-connector.service /etc/systemd/system
+systemctl enable cloud-print-connector.service
+systemctl start cloud-print-connector.service
+# Net-tools
+apt-get --force-yes install net-tools
+# Super alt swap
+cp Configs/appleKeyboardLayoutIndicator.py /usr/bin/appleKeyboardLayoutIndicator.py
+sudo -u "$SUDO_USER" cp Configs/disable_super_key.py.desktop $HOME/.config/autostart
+
+##################
 # Dev:           #
 # Ubuntu make    #
 # VS Code        #
 # Git            #
-# Umake          #
-# Android        #
-# IDEA           #
-# Netbeans       #
 # Pip            #
 # Pip3           #
 # Tkinter        #
@@ -110,12 +140,6 @@ apt-get --force-yes install ubuntu-make
 umake ide visual-studio-code
 # Git
 apt-get --force-yes install git
-# Android studio
-umake android android-studio --accept-license
-# IDEA
-#umake ide idea
-umake ide idea-ultimate
-# Netbeans
 # Pip
 apt-get --force-yes install python-pip
 # pip 3
@@ -137,7 +161,6 @@ gem install fpm
 # Franz (Rambox?)#
 # Hangups        #
 # Dolphin        #
-# Variety        #
 ##################
 # Steam
 apt-get --force-yes install steam
@@ -168,15 +191,13 @@ EOF"
 pip3 install hangups
 # Dolphin
 apt-get --force-yes install dolphin-emu-master
-# Variety 
-apt-get --force-yes install variety
+
 
 ###############
 # Shell:      #
 # Tmux        #
 # Fish        #
 # Teleconsole #
-# Guake       #
 ###############
 # Tmux
 apt-get --force-yes install tmux
@@ -184,8 +205,7 @@ apt-get --force-yes install tmux
 apt-get --force-yes install fish
 # Teleconsole
 curl https://www.teleconsole.com/get.sh | sh
-# Guake
-apt-get --force-yes install guake
+
 
 ##################
 # Drivers        #
@@ -195,7 +215,6 @@ apt-get --force-yes install guake
 # BTRFS          #
 # EXFat          #
 # Solaar         #
-# Touchpad indic #
 ##################
 # Brother HL2240
 wget http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.1.1-1.gz
@@ -215,8 +234,6 @@ apt-get --force-yes install btrfs-tools
 apt-get --force-yes install exfat-utils exfat-fuse
 # Solaar
 apt-get install solaar
-# Touchpad indicator
-apt-get install touchpad-indicator
 
 #########
 # Theme #
@@ -225,6 +242,14 @@ wget https://github.com/LinxGem33/OSX-Arc-Darker/releases/download/v1.4.3/osx-ar
 dpkg -i osx-arc-collection_1.4.3_amd64.deb
 apt-get --force-yes install -f
 rm osx-arc-collection_1.4.3_amd64.deb
+
+###############
+# OFFICE 2013 #
+###############
+echo "Install all the fonts"
+WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winetricks
+echo "Install Office 2013 with this whenever you're ready:"
+echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup.x86.exe"
 
 
 ##########
@@ -257,8 +282,9 @@ chattr +i "/usr/local/bin/bootWindows"
 chattr +i "/usr/local/bin/refindStartup"
 echo "@reboot root /usr/local/bin/refindStartup" >> /etc/crontab
 
-# Show username
-gsettings set com.canonical.indicator.session show-real-name-on-panel true
+##########
+# Config #
+##########
 
 #############
 # Git repos #

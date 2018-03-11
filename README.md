@@ -2,7 +2,7 @@
 
 A set of setup scripts for the Ubuntu operating system
 
-## Suppoerted Operating systems
+## Supported Operating systems
 
 Run the script for the desired OS. We support the following
 

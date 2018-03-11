@@ -38,7 +38,7 @@ chmod +x unified.sh
 # Handbrake     #
 # Caffeine      #
 # Ubuntu Make   #
-# Rclone browser#
+# Touchpad indi #
 #################
 
 echo "Setting up repositories"
@@ -50,8 +50,8 @@ add-apt-repository ppa:stebbins/handbrake-releases
 add-apt-repository ppa:caffeine-developers/ppa
 # Ubuntu make
 add-apt-repository ppa:ubuntu-desktop/ubuntu-make
-# Rclone browser
-add-apt-repository ppa:mmozeiko/rclone-browser
+# Touchpad indicator
+add-apt-repository ppa:atareao/atareao
 # Update
 apt-get update
 apt-get dist-upgrade
@@ -75,60 +75,23 @@ apt-get --force-yes install caffeine
 
 ##################
 # Sys utilities: #
-# Gparted        #
-# ARandR         #
-# Fingerprint    #
 # keylock        #
-# VMWare         #
-# WINE           #
-# Shutter        #
-# Sysmon         #
-# Rclone         #
-# Rclone browser #
-# Cloudprint     #
-# net-tools      #
-# Super alt swap #
 ##################
-# Gparted
-apt-get --force-yes install gparted
-# ARandR
-apt-get --force-yes install arandr
-# Fingerprint
-apt-get --force-yes install libbsapi policykit-1-fingerprint-gui fingerprint-gui
 # Keylock
 apt-get --force-yes install indicator-keylock
-# VMWare
-echo "Install this: https://www.vmware.com/go/tryworkstation-linux-64"
-echo "Use a key"
-sleep 10
-# Wine
-apt-get --force-yes install --install-recommends winehq-devel
-apt-get --force-yes install winbind
-apt-get --force-yes install winetricks
-# Shutter
-apt-get --force-yes install shutter
-# Rclone
-snap install rclone --classic
-# Rclone browser
-apt-get install rclone-browser
-# Cloudprint
-apt-get --force-yes install google-cloud-print-connector
-wget https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
-install -o root -m 0664 cloud-print-connector.service /etc/systemd/system
-systemctl enable cloud-print-connector.service
-systemctl start cloud-print-connector.service
-# Net-tools
-apt-get --force-yes install net-tools
-# Super alt swap
-cp Configs/appleKeyboardLayoutIndicator.py /usr/bin/appleKeyboardLayoutIndicator.py
-sudo -u "$SUDO_USER" cp Configs/disable_super_key.py.desktop $HOME/.config/autostart
 
 ##################
 # Entertainment: #
 # Handbrake      #
+# Variety        #
+# Guake          #
 ##################
 # handbrake
 apt-get --force-yes install handbrake-gtk handbrake-cli
+# Variety 
+apt-get --force-yes install variety
+# Guake
+apt-get --force-yes install guake
 
 
 ##################
@@ -140,18 +103,6 @@ wget https://download.01.org/gfx/ubuntu/16.04/main/pool/main/i/intel-graphics-up
 dpkg -i intel-graphics-update-tool_2.0.5_amd64.deb
 apt-get --force-yes install -f
 rm intel-graphics-update-tool_2.0.5_amd64.deb
-
-
-###############
-# OFFICE 2013 #
-###############
-echo "Set the Windows Version to Win 7"
-WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winecfg
-echo "Install msxml6 in additional components"
-echo "Then set HKCU\Software\Wine\Direct3D\MaxVersionGL to 30002 in hex"
-WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 winetricks
-echo "Install Office 2013 with this whenever you're ready:"
-echo "WINEPREFIX=~/.wine/Office2013 WINEARCH=win32 wine ~/PathTo/Office2013Setup.x86.exe"
 
 ############
 # Clean-up #
@@ -184,5 +135,10 @@ apt-get --force-yes purge shotwell
 # Libreoffice
 apt-get --force-yes purge libreoffice-*
 
+##########
+# Config #
+##########
 
+# Show username
+gsettings set com.canonical.indicator.session show-real-name-on-panel true
 
