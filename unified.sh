@@ -93,7 +93,6 @@ apt-get --force-yes install synergy
 # Fingerprint    #
 # VMWare         #
 # WINE           #
-# Shutter        #
 # Cloudprint     #
 # net-tools      #
 # Super alt swap #
@@ -109,8 +108,6 @@ echo "Use a key"
 apt-get --force-yes install --install-recommends winehq-stable
 apt-get --force-yes install winbind
 apt-get --force-yes install winetricks
-# Shutter
-apt-get --force-yes install shutter
 # Cloudprint
 apt-get --force-yes install google-cloud-print-connector
 wget https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
@@ -155,7 +152,6 @@ gem install fpm
 ##################
 # Entertainment: #
 # Steam          #
-# VLC            #
 # Gimp           #
 # itch.io        #
 # Franz (Rambox?)#
@@ -164,8 +160,6 @@ gem install fpm
 ##################
 # Steam
 apt-get --force-yes install steam
-# VLC
-apt-get --force-yes install vlc
 # gimp
 apt-get --force-yes install gimp
 # itch.io

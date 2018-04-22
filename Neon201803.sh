@@ -60,23 +60,53 @@ apt-get dist-upgrade
 
 #################
 # Requirements: #
+# waterfox-kde  #
 #################
+apt-get --yes install waterfox-kde
 
+#############
+# Internet  #
+# KGet      #
+# KTorrent  #
+# KMail     #
+#############
+
+# KGet
+apt-get --force-yes install kget
+# KTorrent
+apt-get --force-yes install ktorrent
+# KMail
+apt-get --force-yes install kmail
 
 ##################
 # Sys utilities: #
+# Filelight      #
+# KCalc          #
 ##################
+# Filelight
+apt-get --yes install filelight
+# Kcalc
+apt-get --yes install kcalc
 
 ##################
 # Entertainment: #
 # Handbrake      #
 # Yakuake        #
+# Kolourpaint    #
+# KDenLive       #
+# KMPlayer       #
 ##################
 
 # handbrake
 #apt-get --force-yes install handbrake-gtk handbrake-cli
 # Guake
 apt-get --force-yes install yakuake
+# Kolourpaint
+apt-get --force-yes install kolourpaint
+# KDenLive
+apt-get --force-yes install kdenlive
+# KMPlayer
+apt-get --force-yes install kmplayer
 
 
 ##################

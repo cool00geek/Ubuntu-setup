@@ -76,15 +76,19 @@ apt-get --force-yes install caffeine
 ##################
 # Sys utilities: #
 # keylock        #
+# shutter        #
 ##################
 # Keylock
 apt-get --force-yes install indicator-keylock
+# Shutter
+apt-get --force-yes install shutter
 
 ##################
 # Entertainment: #
 # Handbrake      #
 # Variety        #
 # Guake          #
+# VLC            #
 ##################
 # handbrake
 apt-get --force-yes install handbrake-gtk handbrake-cli
@@ -92,7 +96,8 @@ apt-get --force-yes install handbrake-gtk handbrake-cli
 apt-get --force-yes install variety
 # Guake
 apt-get --force-yes install guake
-
+# VLC
+apt-get --force-yes install vlc
 
 ##################
 # Drivers        #

@@ -69,21 +69,27 @@ apt-get --force-yes install gnome-tweak-tool
 ##################
 # Sys utilities: #
 # Shell connector#
+# Shutter        #
 ##################
 # Shell connector
 apt-get install chrome-gnome-shell
 apt-get install gnome-shell-extensions
+# Shutter
+apt-get --force-yes install shutter
 
 ##################
 # Entertainment: #
 # Handbrake      #
 # Guake          #
+# VLC            #
 ##################
 
 # handbrake
 #apt-get --force-yes install handbrake-gtk handbrake-cli
 # Guake
 apt-get --force-yes install guake
+# VLC
+apt-get --force-yes install vlc
 
 
 ##################
