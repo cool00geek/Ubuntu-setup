@@ -70,6 +70,7 @@ apt-get dist-upgrade
 # Chrome        #
 # KeeWeb        #
 # Synergy       #
+# PDF Shuffler  #
 #################
 
 # Waterfox
@@ -86,6 +87,8 @@ apt-get --force-yes install -f
 rm KeeWeb-1.5.6.linux.x64.deb
 # Synergy
 apt-get --force-yes install synergy
+# PDF Shuffler
+apt-get --force-yes install pdfshuffler
 
 ##################
 # Sys utilities: #
