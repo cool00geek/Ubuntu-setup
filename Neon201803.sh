@@ -94,7 +94,7 @@ apt-get --yes install kcalc
 # Yakuake        #
 # Kolourpaint    #
 # KDenLive       #
-# KMPlayer       #
+# Kaffeine       #
 ##################
 
 # handbrake
@@ -106,7 +106,7 @@ apt-get --force-yes install kolourpaint
 # KDenLive
 apt-get --force-yes install kdenlive
 # KMPlayer
-apt-get --force-yes install kmplayer
+apt-get --force-yes install Kaffeine
 
 
 ##################
@@ -123,9 +123,6 @@ apt-get --force-yes install kmplayer
 ##########
 # Config #
 ##########
-
-# Windows controls on left
-gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:
 
 
 #############

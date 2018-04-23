@@ -20,6 +20,7 @@ apt-get install curl
 # Rclone browser#
 # GFX           #
 # Google Chrome #
+# Drive ocaml   #
 #################
 
 echo "Setting up repositories"
@@ -54,6 +55,8 @@ rm RPM-GPG-GROUP-KEY-ilg
 # Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
 sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+# GDrive ocaml
+add-apt-repository ppa:alessandro-strada/ppa
 # Update
 apt-get update
 apt-get dist-upgrade
@@ -71,6 +74,7 @@ apt-get dist-upgrade
 # KeeWeb        #
 # Synergy       #
 # PDF Shuffler  #
+# GDrive ocaml  #
 #################
 
 # Waterfox
@@ -89,6 +93,8 @@ rm KeeWeb-1.5.6.linux.x64.deb
 apt-get --force-yes install synergy
 # PDF Shuffler
 apt-get --force-yes install pdfshuffler
+# GDrive ocaml
+apt-get --force-yes install google-drive-ocamlfuse
 
 ##################
 # Sys utilities: #
