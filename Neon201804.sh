@@ -64,19 +64,19 @@ apt-get dist-upgrade
 #################
 apt-get --yes install waterfox-kde
 
-#############
-# Internet  #
-# KGet      #
-# KTorrent  #
-# KMail     #
-#############
+###############
+# Internet    #
+# KGet        #
+# KTorrent    #
+# Thunderbird #
+###############
 
 # KGet
 apt-get --force-yes install kget
 # KTorrent
 apt-get --force-yes install ktorrent
 # KMail
-apt-get --force-yes install kmail
+apt-get --force-yes install thunderbird
 
 ##################
 # Sys utilities: #
@@ -105,7 +105,7 @@ apt-get --force-yes install yakuake
 apt-get --force-yes install kolourpaint
 # KDenLive
 apt-get --force-yes install kdenlive
-# KMPlayer
+# Kaffeine
 apt-get --force-yes install Kaffeine
 
 
