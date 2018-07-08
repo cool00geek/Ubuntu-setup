@@ -1,0 +1,155 @@
+---
+
+###############################################################################
+# general configuration, works on all distros using the Ubuntu repos
+###############################################################################
+
+- hosts: all
+  remote_user: root
+  vars:
+    my_user: "{{ user }}"
+  tasks:
+
+    - name: Install new repos
+      apt_repository:
+        repo: "{{item}}"
+      loop:
+        - ppa:nilarimogard/webupd8          # Webupd8
+        - ppa:dolphin-emu/ppa               # Dolphin emu
+        - ppa:mozillateam/thunderbird-next  # Thunderbird
+        - ppa:otto-kesselgulasch/gimp       # Gimp
+        - ppa:alessandro-strada/ppa         # GDrive OcamlFuse
+        - deb https://dl.bintray.com/hawkeye116477/waterfox-deb release main  # Waterfox
+        - https://dl.winehq.org/wine-builds/ubuntu/  # Wine
+      apt_repository:
+        repo: deb http://dl.google.com/linux/chrome/deb/ stable main
+        state: present
+        filename: google-chrome
+      apt_key:
+        url: "{{item}}"
+        state: present
+      loop:
+        - https://bintray.com/user/downloadSubjectPublicKey?username=hawkeye116477 # Waterfox
+        - https://dl.winehq.org/wine-builds/Release.key # Wine
+        - https://dl-ssl.google.com/linux/linux_signing_key.pub # Google chrome
+      command: dpkg --add-architecture i386
+
+    - name: Update existing packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+        autoremove: yes
+
+    - name: Install required packages
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - curl
+          - waterfox
+          - albert
+          - google-chrome-stable
+          - synergy
+          - pdfshuffler
+          - google-drive-ocamlfuse
+
+    - name: Copy the albert config
+      copy:
+        src: ./Configs/albert.conf
+        dest: ~/.config/albert.conf
+        mode: 0644
+      become: yes
+      become_user: {{ user }}
+
+    - name: Install system utilities
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - gparted
+          - libbsapi
+          - policykit-1-fingerprint-gui
+          - fingerprint-gui
+          - winehq-stable
+          - winbind
+          - winetricks
+          - google-cloud-print-connector
+          - net-tools
+      get_url:
+        url: https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
+        dest: ./cloud-print-connector.service
+      command: install -o root -m 0664 cloud-print-connector.service /etc/systemd/system
+      systemd:
+        name: cloud-print-connector
+        enabled: yes
+        state: started
+        
+
+    - name: Swap Super and alt
+      copy:
+        src: ./Configs/appleKeyboardLayoutIndicator.py
+        dest: /usr/bin/appleKeyboardLayoutIndicator.py
+
+    - name: Install dev tools
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - ubuntu-make
+          - git
+          - python-pip
+          - python3-pip
+          - python-tk
+          - ruby
+          - ruby-dev
+      gem: 
+        name: fpm
+        state: latest
+
+    - name: Install entertainment programs
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - steam
+          - gimp
+          - dolphin-emu-master
+      pip:
+        name: hangups
+        executable: pip-3.3
+      
+
+    - name: Install shell customizations
+      apt:
+        name: "{{ packages }}"
+      vars: 
+        packages:
+          - zsh
+      shell: curl https://www.teleconsole.com/get.sh | sh
+
+    - name: Install drivers
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - tlp
+          - btrfs-tools
+          - exfat-utils
+          - exfat-fuse
+          - solaar
+      get_url:
+        url: http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.1.1-1.gz
+        dest: ~/Downloads/brother-printer.gz
+        become: yes
+        become_user: {{ user }}
+      copy: 
+        src: ./Configs/tlp
+        dest: /etc/default/tlp
+        mode: 0644
+
+    - name: Install deb packages
+      apt:
+        deb: "{{item}}"
+      loop:
+        - https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb # Keeweb
+        - https://github.com/LinxGem33/OSX-Arc-Darker/releases/download/v1.4.3/osx-arc-collection_1.4.3_amd64.deb # OSX Arc collection
