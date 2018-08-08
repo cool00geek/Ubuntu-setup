@@ -4,35 +4,39 @@
 # general configuration, works on all distros using the Ubuntu repos
 ###############################################################################
 
-- hosts: all
+- hosts: localhost
   remote_user: root
   vars:
     my_user: "{{ user }}"
   tasks:
 
     - name: Install new repos
-      apt_repository:
-        repo: "{{item}}"
-      loop:
+      block:
+      - apt_key:
+          url: "{{item}}"
+          state: present
+        loop:
+          - https://bintray.com/user/downloadSubjectPublicKey?username=hawkeye116477 # Waterfox
+          - https://dl.winehq.org/wine-builds/Release.key # Wine
+          - https://dl-ssl.google.com/linux/linux_signing_key.pub # Google chrome
+          - https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_{{ ansible_distribution_version }}/Release.key
+      - apt_repository:
+          repo: "{{item}}"
+        loop:
         - ppa:nilarimogard/webupd8          # Webupd8
         - ppa:dolphin-emu/ppa               # Dolphin emu
         - ppa:mozillateam/thunderbird-next  # Thunderbird
         - ppa:otto-kesselgulasch/gimp       # Gimp
         - ppa:alessandro-strada/ppa         # GDrive OcamlFuse
+        - ppa:fingerprint/fingerprint-gui   # Fingerprint GUI
         - deb https://dl.bintray.com/hawkeye116477/waterfox-deb release main  # Waterfox
-        - https://dl.winehq.org/wine-builds/ubuntu/  # Wine
-      apt_repository:
-        repo: deb http://dl.google.com/linux/chrome/deb/ stable main
-        state: present
-        filename: google-chrome
-      apt_key:
-        url: "{{item}}"
-        state: present
-      loop:
-        - https://bintray.com/user/downloadSubjectPublicKey?username=hawkeye116477 # Waterfox
-        - https://dl.winehq.org/wine-builds/Release.key # Wine
-        - https://dl-ssl.google.com/linux/linux_signing_key.pub # Google chrome
-      command: dpkg --add-architecture i386
+        - deb https://dl.winehq.org/wine-builds/ubuntu/ {{ ansible_distribution_release }} main  # Wine
+        - deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_{{ ansible_distribution_version }}/ / # Albert
+      - apt_repository:
+          repo: deb http://dl.google.com/linux/chrome/deb/ stable main
+          state: present
+          filename: google-chrome
+      - command: dpkg --add-architecture i386
 
     - name: Update existing packages
       apt:
@@ -52,6 +56,7 @@
           - synergy
           - pdfshuffler
           - google-drive-ocamlfuse
+          - thunderbird
 
     - name: Copy the albert config
       copy:
@@ -59,30 +64,31 @@
         dest: ~/.config/albert.conf
         mode: 0644
       become: yes
-      become_user: {{ user }}
+      become_user: "{{ my_user }}"
 
     - name: Install system utilities
-      apt:
-        name: "{{ packages }}"
-      vars:
-        packages:
-          - gparted
-          - libbsapi
-          - policykit-1-fingerprint-gui
-          - fingerprint-gui
-          - winehq-stable
-          - winbind
-          - winetricks
-          - google-cloud-print-connector
-          - net-tools
-      get_url:
-        url: https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
-        dest: ./cloud-print-connector.service
-      command: install -o root -m 0664 cloud-print-connector.service /etc/systemd/system
-      systemd:
-        name: cloud-print-connector
-        enabled: yes
-        state: started
+      block:
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - gparted
+              - libbsapi
+              - policykit-1-fingerprint-gui
+              - fingerprint-gui
+              - winehq-stable
+              - winbind
+              - winetricks
+              - google-cloud-print-connector
+              - net-tools
+        - get_url:
+            url: https://raw.githubusercontent.com/google/cloud-print-connector/master/systemd/cloud-print-connector.service
+            dest: ./cloud-print-connector.service
+        - command: install -o root -m 0664 cloud-print-connector.service /etc/systemd/system
+        - systemd:
+            name: cloud-print-connector
+            enabled: yes
+            state: started
         
 
     - name: Swap Super and alt
@@ -91,65 +97,187 @@
         dest: /usr/bin/appleKeyboardLayoutIndicator.py
 
     - name: Install dev tools
-      apt:
-        name: "{{ packages }}"
-      vars:
-        packages:
-          - ubuntu-make
-          - git
-          - python-pip
-          - python3-pip
-          - python-tk
-          - ruby
-          - ruby-dev
-      gem: 
-        name: fpm
-        state: latest
+      block:
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - ubuntu-make
+              - git
+              - python-pip
+              - python3-pip
+              - python-tk
+              - ruby
+              - ruby-dev
+              - buildnotify
+        - gem: 
+            name: fpm
+            state: latest
 
     - name: Install entertainment programs
-      apt:
-        name: "{{ packages }}"
-      vars:
-        packages:
-          - steam
-          - gimp
-          - dolphin-emu-master
-      pip:
-        name: hangups
-        executable: pip-3.3
+      block:
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - steam
+              - gimp
+              - dolphin-emu-master
+        - pip:
+            name: hangups
+            executable: pip3
       
 
     - name: Install shell customizations
-      apt:
-        name: "{{ packages }}"
-      vars: 
-        packages:
-          - zsh
-      shell: curl https://www.teleconsole.com/get.sh | sh
+      block:
+        - apt:
+            name: "{{ packages }}"
+          vars: 
+            packages:
+              - zsh
+        - shell: curl https://www.teleconsole.com/get.sh | sh
 
     - name: Install drivers
-      apt:
-        name: "{{ packages }}"
-      vars:
-        packages:
-          - tlp
-          - btrfs-tools
-          - exfat-utils
-          - exfat-fuse
-          - solaar
-      get_url:
-        url: http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.1.1-1.gz
-        dest: ~/Downloads/brother-printer.gz
-        become: yes
-        become_user: {{ user }}
-      copy: 
-        src: ./Configs/tlp
-        dest: /etc/default/tlp
-        mode: 0644
+      block:
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - tlp
+              - btrfs-tools
+              - exfat-utils
+              - exfat-fuse
+              - solaar
+        - get_url:
+            url: http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.1.1-1.gz
+            dest: ~/Downloads/brother-printer.gz
+          become: yes
+          become_user: "{{ my_user }}"
+        - copy: 
+            src: ./Configs/tlp
+            dest: /etc/default/tlp
+            mode: 0644
 
     - name: Install deb packages
       apt:
         deb: "{{item}}"
       loop:
         - https://github.com/keeweb/keeweb/releases/download/v1.5.6/KeeWeb-1.5.6.linux.x64.deb # Keeweb
-        - https://github.com/LinxGem33/OSX-Arc-Darker/releases/download/v1.4.3/osx-arc-collection_1.4.3_amd64.deb # OSX Arc collection
+        - https://go.microsoft.com/fwlink/?LinkID=760868 # VSC
+
+
+###############################################################################
+# Configurations for Ubuntu 17.10, Using the Gnome DE
+###############################################################################
+
+- hosts: localhost
+  remote_user: root
+  vars:
+    my_user: "{{ user }}"
+    desktop_env: "{{ lookup('env','XDG_CURRENT_DESKTOP') }}"
+  
+  tasks:
+    - name: Ubuntu 17.10
+      block:
+        - debug:
+            msg: Ubuntu 17.10 detected. Running Ubuntu 17.10 specific tasks.
+
+        # Install requirements 
+        - apt:
+            name: gnome-tweak-tool
+    
+        # System Utils
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - chrome-gnome-shell
+              - gnome-shell-extensions
+              - shutter
+    
+        # Entertainment
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - guake
+              - vlc
+
+        # Clean-up
+        - apt:
+            name: "{{ packages }}"
+            state: absent
+            purge: yes
+          vars:
+            packages:
+              - totem*
+              - rhythmbox*
+              - gnome-screenshot
+              - apport
+              - whoopsie
+              - zeitgeist-core
+              - gnome-mines
+              - aisleriot
+              - shotwell
+              - libreoffice*
+              - gnome-sudoku
+              - gnome-mahjongg
+
+        # WM Config (GNOME ONLY!)
+        - command: "gsettings set org.gnome.desktop.wm.preferences button-layout close,minimize,maximize:"
+      when: "ansible_distribution == 'Ubuntu' and ansible_distribution_version == '17.10' and desktop_env == 'Gnome'"
+
+
+###############################################################################
+# Configurations for Ubuntu 18.04 flavors, Using the KDE DE
+###############################################################################
+
+- hosts: localhost
+  remote_user: root
+  vars:
+    my_user: "{{ user }}"
+    desktop_env: "{{ lookup('env','XDG_CURRENT_DESKTOP') }}"
+
+  tasks:
+    - name: debugue
+      debug:
+        msg: "{{ ansible_distribution }}" is the distro "{{ ansible_distribution_version }}" is the version and "{{ desktop_env }}" is the env
+    - name: KDEUbuntu 18.04
+      block:
+        - debug:
+            msg: Ubuntu 18.04 KDE detected. Running KDE-Ubuntu 18.04 specific tasks.
+
+        # Requirements
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - waterfox-kde
+
+        # Internet
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - kget
+              - ktorrent
+        
+        # System utilities
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - filelight
+              - kcalc
+
+        # Entertainment
+        - apt:
+            name: "{{ packages }}"
+          vars:
+            packages:
+              - yakuake
+              - kolourpaint
+              - kdenlive
+              - kaffeine
+
+      when: "ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04' and desktop_env == 'KDE'"
