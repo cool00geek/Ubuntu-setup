@@ -109,10 +109,12 @@
               - python-tk
               - ruby
               - ruby-dev
-              - buildnotify
         - gem: 
             name: fpm
             state: latest
+        - gem:
+            name: travis
+            state: 1.8.8
 
     - name: Install entertainment programs
       block:
