@@ -34,7 +34,7 @@
   become: yes
   become_user: aur_builder
 
-- name: Install internet tools
+- name: Install internet tools (1/2)
   aur:
     use: yay
     name:
@@ -46,15 +46,32 @@
   become: yes
   become_user: aur_builder
 
-- name: Install productivity tools
+- name: Install internet tools (2/2)
+  package:
+    name:
+      - caprine
+      - discord
+  become: yes
+
+- name: Install productivity tools (1/2)
   aur:
     use: yay
     name:
+      - antigen
       - cryptomator
   become: yes
   become_user: aur_builder
 
-- name: Install system utilities
+- name: Install productivity tools (2/2)
+  package:
+    name:
+      - wakatime
+      - zsh-autosuggestions
+      - zsh-completions
+      - zsh-history-substring-search
+  become: yes
+
+- name: Install system utilities (1/2)
   aur:
     use: yay
     name:
@@ -64,6 +81,14 @@
   become: yes
   become_user: aur_builder
 
+- name: Install system utilities (2/2)
+  package:
+    name:
+      - pamac-gtk
+      - zerotier-one
+    state: present
+  become: yes
+
 - name: Device drivers
   aur:
     use: yay
@@ -71,12 +96,6 @@
       - brother-hl2240d
   become: yes
   become_user: aur_builder
-
-- name: Package manager
-  package:
-    name:
-      - pamac-gtk
-    state: present
 
 # Upgrade the system using yay, only act on AUR packages, note that dependency resolving will still include repository packages
 - name: Update AUR packages

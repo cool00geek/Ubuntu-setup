@@ -5,74 +5,72 @@
 
 - name: Include distro-specific things
   include: "{{ ansible_os_family }}.yml"
-#
-#- name: Install internet tools
-#  package:
-#    name:
-#      - caprine # TODO
-#      - discord # TODO
-#      - signal-desktop
-#      - telegram-desktop
-#    state: present
-#
-#- name: Install media tools
-#  package:
-#    name:
-#      - kolourpaint
-#      - vlc
-#    state: present
-#
-#- name: Install productivity tools
-#  package:
-#    name:
-#      - barrier
-#      - keepassxc
-#      - kget
-#      - sshfs
-#      - wakatime # TODO
-#    state: present
-#
-#- name: Install developer tools
-#  package:
-#    name:
-#      - antigen
-#      - bash
-#      - cmake
-#      - curl
-#      - git
-#      - gnupg
-#      - "{{ java_jre }}"
-#      - "{{ python }}"
-#      - zsh
-#      - zsh-autosuggestions # TODO
-#      - zsh-completions # TODO
-#      - zsh-history-substring-search # TODO
-#      - zsh-syntax-highlighting
-#    state: present
-#
-#- name: Install system utilities
-#  package:
-#    name:
-#      - "{{ avahi }}"
-#      - cups
-#      - filelight
-#      - htop
-#      - "{{ lm_sensors }}"
-#      - "{{ openssh_server }}"
-#      - partitionmanager
-#      - p7zip
-#      - rsync
-#      - screenfetch
-#      - speedtest-cli
-#      - testdisk
-#      - zerotier-one # TODO
-#    state: present
-#
-#- name: Device drivers
-#  package:
-#    name:
-#      - btrfs-progs
-#      - exfat-utils
-#      - foomatic-db
-#      - reiserfsprogs
-#    state: present
+
+- name: Install internet tools
+  package:
+    name:
+      - signal-desktop
+      - telegram-desktop
+    state: present
+  become: yes
+
+- name: Install media tools
+  package:
+    name:
+      - kolourpaint
+      - vlc
+    state: present
+  become: yes
+
+- name: Install productivity tools
+  package:
+    name:
+      - barrier
+      - keepassxc
+      - kget
+      - sshfs
+    state: present
+  become: yes
+
+- name: Install developer tools
+  package:
+    name:
+      - bash
+      - cmake
+      - curl
+      - git
+      - gnupg
+      - "{{ java_jre }}"
+      - "{{ python }}"
+      - zsh
+      - zsh-syntax-highlighting
+    state: present
+  become: yes
+
+- name: Install system utilities
+  package:
+    name:
+      - "{{ avahi }}"
+      - cups
+      - filelight
+      - htop
+      - "{{ lm_sensors }}"
+      - "{{ openssh_server }}"
+      - partitionmanager
+      - p7zip
+      - rsync
+      - screenfetch
+      - speedtest-cli
+      - testdisk
+    state: present
+  become: yes
+
+- name: Device drivers
+  package:
+    name:
+      - btrfs-progs
+      - exfat-utils
+      - foomatic-db
+      - reiserfsprogs
+    state: present
+  become: yes
