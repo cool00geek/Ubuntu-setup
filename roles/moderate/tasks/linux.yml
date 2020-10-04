@@ -1,0 +1,55 @@
+- name: Read vars
+  include_vars:
+    dir: vars
+    files_matching: "{{ ansible_os_family }}.yml"
+
+- name: Include distro-specific things
+  include: "{{ ansible_os_family }}.yml"
+
+
+- name: Install media tools
+  package:
+    name:
+      - "{{ steam }}"
+    state: present
+  become: yes
+
+- name: Install productivity tools
+  package:
+    name:
+      - "{{ libreoffice }}"
+      - xournalpp
+    state: present
+  become: yes
+
+- name: Install developer tools
+  package:
+    name:
+      - "{{ android_tools }}"
+      - "{{ java_jdk }}"
+      - nmap
+      - "{{ venv }}"
+      - "{{ venv_wrapper }}"
+      - ruby
+      - "{{ rubygems }}"
+    state: present
+  become: yes
+
+- name: Install system utilities
+  package:
+    name:
+      - dmg2img
+      - efibootmgr
+      - "{{ etcher }}"
+      - latte-dock
+      - "{{ woeusb }}"
+      - yakuake
+    state: present
+  become: yes
+
+- name: Device drivers
+  package:
+    name:
+      - solaar
+    state: present
+  become: yes

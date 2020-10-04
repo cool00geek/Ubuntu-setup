@@ -1,0 +1,27 @@
+- name: Add repos
+  apt_repository:
+    repo:
+      - ppa:jonathonf/barrier
+      - ppa:andreasbutti/xournalpp-master
+      - ppa:nilarimogard/webupd8
+      - deb https://deb.etcher.io stable etcher
+      - deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
+    state: present
+
+- name: Set repo keys
+  apt_key:
+    keyserver: hkps://keyserver.ubuntu.com:443
+    id: 379CE192D401AB61
+
+- name: Signal repo key
+  apt_key:
+    url: https://updates.signal.org/desktop/apt/keys.asc
+    state: present
+
+- name: Update cache
+  apt:
+    update_cache: yes
+
+- name: Upgrade packages
+  apt:
+    upgrade: yes

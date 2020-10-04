@@ -1,0 +1,11 @@
+---
+
+###############################################################################
+# general configuration, works on all distros using the Ubuntu repos
+###############################################################################
+
+
+- hosts: all
+  roles:
+    - essential
+    - moderate

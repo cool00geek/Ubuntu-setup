@@ -1,0 +1,9 @@
+steam: steam
+libreofice: libreoffice
+android_tools: android-tools-adb
+java_jdk: openjdk-11-jdk
+venv: python3-virtualenv
+venv_wrapper: virtualenvwrapper
+rubygems: rubygems-integration
+etcher: balena-etcher-electron
+woeusb: woeusb

@@ -1,0 +1,14 @@
+steam: steam
+libreofice: libreoffice
+tex: texlive
+android-tools: android-tools-adb
+java_jre: openjdk-11-jre
+java_jdk: openjdk-11-jdk
+python: python3
+venv: python3-virtualenv
+venv_wrapper: virtualenvwrapper
+avahi: avahi-daemon
+lm_sensors: lm-sensors
+openssh_server: openssh-server
+etcher: balena-etcher-electron
+woeusb: woeusb

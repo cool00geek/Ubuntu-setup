@@ -1,0 +1,87 @@
+- name: Create aur_builder user
+  user:
+    name: aur_builder
+    group: wheel
+  become: yes
+- name: Add to sudoers
+  lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: yes
+    validate: 'visudo -cf %s'
+  become: yes
+
+- name: Update cache
+  pacman:
+    update_cache: yes
+  become: yes
+
+- name: Upgrade system
+  pacman:
+    upgrade: yes
+  become: yes
+
+- name: Remove firefox and thunderbird
+  pacman:
+    name:
+      - firefox
+      - thunderbird
+    state: absent
+  become: yes
+
+- name: Install Thunderbird GPG keys
+  shell: gpg --keyserver keys.gnupg.net --recv-keys 85F86E317555BECC1C2184BF2C45BA09ABC5D7DA
+  become: yes
+  become_user: aur_builder
+
+- name: Install internet tools
+  aur:
+    use: yay
+    name:
+      - firefox-ubuntu-bin
+      - google-chrome
+      - hangups-git
+      - slack-desktop
+      - thunderbird-appmenu-bin
+  become: yes
+  become_user: aur_builder
+
+- name: Install productivity tools
+  aur:
+    use: yay
+    name:
+      - cryptomator
+  become: yes
+  become_user: aur_builder
+
+- name: Install system utilities
+  aur:
+    use: yay
+    name:
+      - drive-bin
+      - insync
+      - insync-dolphin
+  become: yes
+  become_user: aur_builder
+
+- name: Device drivers
+  aur:
+    use: yay
+    name:
+      - brother-hl2240d
+  become: yes
+  become_user: aur_builder
+
+- name: Package manager
+  package:
+    name:
+      - pamac-gtk
+    state: present
+
+# Upgrade the system using yay, only act on AUR packages, note that dependency resolving will still include repository packages
+- name: Update AUR packages
+  aur:
+    upgrade: yes
+    use: yay
+    aur_only: yes
+  become: yes

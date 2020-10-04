@@ -1,0 +1,9 @@
+steam: steam-manjaro
+libreoffice: libreoffice-still
+android_tools: android-tools
+java_jdk: jdk-openjdk
+venv: python-virtualenv
+venv_wrapper: python-virtualenvwrapper
+rubygems: rubygems
+etcher: etcher
+woeusb: woeusb

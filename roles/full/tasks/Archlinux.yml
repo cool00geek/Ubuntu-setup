@@ -1,0 +1,29 @@
+- name: Update cache
+  pacman:
+    update_cache: yes
+  become: yes
+
+- name: Install developer tools
+  aur:
+    use: yay
+    name:
+      - intellij-idea-ultimate-edition
+  become: yes
+  become_user: aur_builder
+
+- name: Install system utilities
+  aur:
+    use: yay
+    name:
+      - ansible-aur-git
+  become: yes
+  become_user: aur_builder
+
+- name: Device drivers
+  aur:
+    use: yay
+    name:
+      - brother-hl2240d
+      - apfs-fuse-git
+  become: yes
+  become_user: aur_builder

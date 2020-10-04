@@ -1,0 +1,7 @@
+java_jre: jre-openjdk
+python: python
+avahi: avahi
+lm_sensors: lm_sensors
+openssh_server: openssh
+
+caprine: caprine

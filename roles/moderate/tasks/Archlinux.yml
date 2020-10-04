@@ -1,0 +1,44 @@
+- name: Update cache
+  pacman:
+    update_cache: yes
+  become: yes
+
+- name: Install spotify GPG keys (1/2)
+  shell: curl -sS https://download.spotify.com/debian/pubkey.gpg | gpg --import -
+  args:
+    executable: /bin/bash
+  become: yes
+  become_user: aur_builder
+
+- name: Install Spotify GPG keys (2/2)
+  shell: gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+  become: yes
+  become_user: aur_builder
+
+- name: Install media tools
+  aur:
+    use: yay
+    name:
+      - spotify
+      - spotify-adblock-git
+      - spotifywm-git
+  become: yes
+  become_user: aur_builder
+
+- name: Install productivity tools
+  aur:
+    use: yay
+    name:
+      - cryptomator
+      - vmware-workstation
+  become: yes
+  become_user: aur_builder
+
+- name: Install developer tools
+  aur:
+    use: yay
+    name:
+      - gitfiend
+      - visual-studio-code-bin
+  become: yes
+  become_user: aur_builder

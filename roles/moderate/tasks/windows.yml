@@ -1,0 +1,74 @@
+- name: Gathering facts
+  setup:
+
+- name: Ensure Chocolatey itself is installed and use internal repo as source
+  win_chocolatey:
+    name: chocolatey
+
+- name: Upgrade installed packages
+  win_chocolatey:
+    name: all
+    state: present
+
+- name: Install internet tools
+  win_chocolatey:
+    name:
+    - firefox
+    - googlechrome
+    - zoom
+    - caprine
+    - discord
+    - telegram
+    state: present
+
+- name: Install media tools
+  win_chocolatey:
+    name:
+      - epicgameslauncher
+      - steam
+      - vlc
+    state: present
+
+- name: Install productivity tools
+  win_chocolatey:
+    name:
+      - barrier
+      - keepassxc
+    state: present
+
+- name: Install developer tools
+  win_chocolatey:
+    name:
+      - filezilla
+      - git
+      - putty
+      - python
+      - vscode
+      - wsl-ubuntu-2004
+    state: present
+
+- name: Install system utilities
+  win_chocolatey:
+    name:
+      - etcher
+      - windirstat
+      - zerotier-one
+    state: present
+
+- name: Install drivers
+  win_chocolatey:
+    name:
+      - linux-reader
+    state: present
+
+- name: Install brother HL-2240
+  win_package:
+    path: https://download.brother.com/welcome/dlf005129/HL-2240-inst-D1-win8-useu.EXE
+    state: present
+
+- name: Install all security, critical, and rollup updates without a scheduled task
+  win_updates:
+    category_names:
+      - SecurityUpdates
+      - CriticalUpdates
+      - UpdateRollups

@@ -1,0 +1,37 @@
+- name: Read vars
+  include_vars:
+    dir: vars
+    files_matching: "{{ ansible_os_family }}.yml"
+
+- name: Include distro-specific things
+  include: "{{ ansible_os_family }}.yml"
+#
+#
+#- name: Install media tools
+#  package:
+#    name:
+#      - audacity
+#      - ffmpeg
+#      - gimp
+#      - handbrake
+#      - inkscape
+#    state: present
+#
+#- name: Install productivity tools
+#  package:
+#    name:
+#      - "{{ tex }}"
+#    state: present
+#
+#- name: Install developer tools
+#  package:
+#    name:
+#      - nodejs
+#      - npm
+#    state: present
+#
+#- name: Install system utilities
+#  package:
+#    name:
+#      - ansible
+#    state: present
